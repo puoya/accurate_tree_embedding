@@ -31,3 +31,16 @@ MOVIE_LENGTH = 60
 # Add other default parameters as needed
 
 EMBEDDING_MODE = 'naive'
+
+
+
+
+############################### embedding ###############################
+
+poincare_domain = (0,1)
+loid_domain = (-1-10**(-3), -1+10**(-3))
+frechet_lr = 0.001
+frechet_max_iter = 1000
+frechet_tol = 1e-8
+norm_projection = 0.999999
+atol = 1e-6

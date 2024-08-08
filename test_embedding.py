@@ -1,4 +1,5 @@
 from your_package import embedding
+from your_package import procrustes
 import numpy as np
 import torch
 import logging
@@ -10,7 +11,7 @@ logging.info(f'Running version {__version__}')
 # test initialization
 ###############################################
 ###############################################
-# space = embedding.EmbeddingSpace()
+# space = embedding.Embedding()
 # print('space',space)
 # print('points',space.points)
 # print('log',space.logger)
@@ -22,7 +23,7 @@ logging.info(f'Running version {__version__}')
 # test complete (general)
 #############################
 # points = np.array([[1,2],[2,3]])
-# space = embedding.EmbeddingSpace(points = points)
+# space = embedding.Embedding(points = points)
 # print('space',space)
 # print('points',space.points)
 # print('log',space.logger)
@@ -31,7 +32,7 @@ logging.info(f'Running version {__version__}')
 # space2 = space.load('tmp.pkl')
 # print(space2)
 # points = torch.tensor([[1,2],[2,3]])
-# space = embedding.EmbeddingSpace(points = points)
+# space = embedding.Embedding(points = points)
 # print('space',space)
 # print('points',space.points)
 # print('log',space.logger)
@@ -43,22 +44,24 @@ logging.info(f'Running version {__version__}')
 # test complete (np and torch points)
 #############################
 # points = np.array([[1,2],[2,3]])
-# space = embedding.EmbeddingSpace(points = points, geometry = 'euclidean',enable_logging = True)
+# space = embedding.Embedding(points = points, geometry = 'euclidean',enable_logging = True)
 # print('space',space)
 # print('points',space.points)
 # print('log',space.logger)
 # print('geom',space.geometry)
 # space.save('tmp.pkl')
 # space2 = space.load('tmp.pkl')
+# space3 = space2.copy()
 # print(space2)
+# print(space3)
 #############################
-# test complete (geometry and logger)
+# test complete (geometry, logger, copy)
 #############################
 # points = torch.tensor([[1,2],[2,3]])
 # print(points)
 # points = points.int()
 # print(points)
-# space = embedding.EmbeddingSpace(points = points, geometry = 'euclidean',enable_logging = True)
+# space = embedding.Embedding(points = points, geometry = 'euclidean',enable_logging = True)
 # print('space',space)
 # print('points',space.points)
 # pt = space.points
@@ -74,13 +77,11 @@ logging.info(f'Running version {__version__}')
 
 
 
-
-
 ###############################################
 # test initialization
 ###############################################
 ###############################################
-# space = embedding.HyperbolicSpace()
+# space = embedding.HyperbolicEmbedding()
 # print(space)
 # print(space.curvature)
 # print(space.geometry)
@@ -89,12 +90,13 @@ logging.info(f'Running version {__version__}')
 # space.save('tmp.pkl')
 # space2 = space.load('tmp.pkl')
 # print(space2)
+# print(space2.copy())
 #############################
 # test complete (general)
 #############################
 # points = np.array([[1,2],[2,3.0]])/ 20 
 # print(points)
-# space = embedding.HyperbolicSpace(points = points)
+# space = embedding.HyperbolicEmbedding(points = points)
 # print('space',space)
 # print('points',space.points)
 # print('log',space.logger)
@@ -103,7 +105,7 @@ logging.info(f'Running version {__version__}')
 # space2 = space.load('tmp.pkl')
 # print(space2)
 # points = torch.tensor([[1,2],[2,3]])
-# space = embedding.HyperbolicSpace(points = points)
+# space = embedding.HyperbolicEmbedding(points = points)
 # print('space',space)
 # print('points',space.points)
 # print('log',space.logger)
@@ -115,7 +117,7 @@ logging.info(f'Running version {__version__}')
 # test complete (np and torch points)
 #############################
 # points = np.array([[1,2],[2,3]])
-# space = embedding.HyperbolicSpace(points = points, curvature = -10, enable_logging = True)
+# space = embedding.HyperbolicEmbedding(points = points, curvature = -10, enable_logging = True)
 # print('space',space)
 # print('points',space.points)
 # print('log',space.logger)
@@ -133,7 +135,7 @@ logging.info(f'Running version {__version__}')
 # print(points)
 # points = points.int()
 # print(points)
-# space = embedding.HyperbolicSpace(points = points, enable_logging = True,model = 'loid')
+# space = embedding.HyperbolicEmbedding(points = points, enable_logging = True,model = 'loid')
 # print('space',space)
 # print('points',space.points)
 # pt = space.points
@@ -155,7 +157,7 @@ logging.info(f'Running version {__version__}')
 # test initialization
 ###############################################
 ###############################################
-# space = embedding.PoincareSpace()
+# space = embedding.PoincareEmbedding()
 # print(space)
 # print(space.geometry)
 # print(space.points)
@@ -163,7 +165,7 @@ logging.info(f'Running version {__version__}')
 # print(space.model)
 # print(space.curvature)
 # print(space.logger)
-# space = embedding.PoincareSpace(enable_logging = True)
+# space = embedding.PoincareEmbedding(enable_logging = True)
 # print(space.logger)
 #############################
 # test complete (general, logger)
@@ -173,7 +175,7 @@ logging.info(f'Running version {__version__}')
 #     [.1, -1.2, 2, 0.3, .4, -3.1, 2.4, 7.8, 4.9, -1]
 # ])
 # initial_points  =initial_points/20
-# space = embedding.PoincareSpace(points = initial_points)
+# space = embedding.PoincareEmbedding(points = initial_points)
 # print(space)
 # print(space.geometry)
 # print(space.points)
@@ -203,7 +205,7 @@ logging.info(f'Running version {__version__}')
 #     [.1, -1.2, 2, 0.3, .4, -3.1, 2.4, 7.8, 4.9, -1]
 # ])
 # initial_points  =initial_points/20
-# space = embedding.PoincareSpace(points = initial_points, enable_logging = True)
+# space = embedding.PoincareEmbedding(points = initial_points, enable_logging = True)
 # # print('points',space.points)
 # space_l = space.switch_model()
 # print(space_l)
@@ -227,7 +229,7 @@ logging.info(f'Running version {__version__}')
 #     [.1, -1.2, 2, 0.3, .4, -3.1, 2.4, 7.8, 4.9, -1]
 # ])
 # initial_points  =initial_points/20
-# space = embedding.PoincareSpace(points = initial_points)
+# space = embedding.PoincareEmbedding(points = initial_points)
 # distance_matrix = space.distance_matrix()
 # print(distance_matrix)
 # space.curvature = -9
@@ -242,16 +244,16 @@ logging.info(f'Running version {__version__}')
 #     [.1, -1.2, 2, 0.3, .4, -3.1, 2.4, 7.8, 4.9, -1]
 # ])
 # initial_points  =initial_points/20
-# space = embedding.PoincareSpace(points = initial_points)
-# # print(space.points)
+# space = embedding.PoincareEmbedding(points = initial_points)
+# print(space.points)
 # distance_matrix = space.distance_matrix()
-# print(distance_matrix)
+# # print(distance_matrix)
 
 # R = np.random.randn(2,2)
 # R = np.matmul(R.T,R)
 # R,_,_ = np.linalg.svd(R,full_matrices=True)
 # space.rotate(R)
-# # print(space.points)
+# print(space.points)
 # distance_matrix2 = space.distance_matrix()
 # print(distance_matrix2-distance_matrix)
 #############################
@@ -262,7 +264,7 @@ logging.info(f'Running version {__version__}')
 #     [.1, -1.2, 2, 0.3, .4, -3.1, 2.4, 7.8, 4.9, -1]
 # ])
 # initial_points  =initial_points/20
-# space = embedding.PoincareSpace(points = initial_points)
+# space = embedding.PoincareEmbedding(points = initial_points)
 # pts = space.points
 # print(pts)
 # distance_matrix = space.distance_matrix()
@@ -285,7 +287,7 @@ logging.info(f'Running version {__version__}')
 #     [.1, -1.2, 2, 0.3, .4, -3.1, 2.4, 7.8, 4.9, -1]
 # ])
 # initial_points  =initial_points/20
-# space = embedding.PoincareSpace(points = initial_points)
+# space = embedding.PoincareEmbedding(points = initial_points)
 # c = space.centroid()
 # print(c)
 # c = space.centroid(mode = 'Frechet')
@@ -295,10 +297,10 @@ logging.info(f'Running version {__version__}')
 #     [1, -2, 1, 0, .1, 1, -4, 8, 9, 1.3],
 #     [.1, -1.2, 2, 0.3, .4, -3.1, 2.4, 7.8, 4.9, -1]
 # ])
-# mode = 'defualt'
-# # mode = 'Frechet'
+# # mode = 'defualt'
+# mode = 'Frechet'
 # initial_points  =initial_points/20
-# space = embedding.PoincareSpace(points = initial_points)
+# space = embedding.PoincareEmbedding(points = initial_points)
 # print(space.points)
 # print(space.centroid())
 # space.center()
@@ -312,15 +314,14 @@ logging.info(f'Running version {__version__}')
 
 
 
-
-initial_points = np.array([
-    [1, -2, 1, 0, .1, 1, -4, 8, 9, 1.3],
-    [.1, -1.2, 2, 0.3, .4, -3.1, 2.4, 7.8, 4.9, -1]
-])
-initial_points  =initial_points/20
-space = embedding.PoincareSpace(points = initial_points)
-space = space.switch_model()
-initial_points = space.points
+# initial_points = np.array([
+#     [1, -2, 1, 0, .1, 1, -4, 8, 9, 1.3],
+#     [.1, -1.2, 2, 0.3, .4, -3.1, 2.4, 7.8, 4.9, -1]
+# ])
+# initial_points  =initial_points/20
+# space = embedding.PoincareEmbedding(points = initial_points)
+# space = space.switch_model()
+# initial_points = space.points
 # print(initial_points)
 # print(space)
 # print(space.geometry)
@@ -329,7 +330,7 @@ initial_points = space.points
 # print(space.model)
 # print(space.curvature)
 # print(space.logger)
-# space = embedding.LoidSpace(enable_logging = True)
+# space = embedding.LoidEmbedding(enable_logging = True)
 # print(space.logger)
 # print(space.points)
 # print(space.dimension)
@@ -343,7 +344,7 @@ initial_points = space.points
 #############################
 # test complete (general, logger)
 #############################
-# space = embedding.LoidSpace(points = initial_points)
+# space = embedding.LoidEmbedding(points = initial_points)
 # print(space)
 # print(space.geometry)
 # print(space.points)
@@ -367,7 +368,7 @@ initial_points = space.points
 #############################
 # test complete (points, norm2, dimension, n_points,curvature)
 #############################
-# space = embedding.LoidSpace(points = initial_points, enable_logging = True)
+# space = embedding.LoidEmbedding(points = initial_points, enable_logging = True)
 # print('points',space.points)
 # space_p = space.switch_model()
 # print(space_p)
@@ -386,7 +387,7 @@ initial_points = space.points
 #############################
 # test complete (switch model)
 #############################
-# space = embedding.LoidSpace(points = initial_points)
+# space = embedding.LoidEmbedding(points = initial_points)
 # distance_matrix = space.distance_matrix()
 # print(distance_matrix)
 # space.curvature = -9
@@ -396,7 +397,7 @@ initial_points = space.points
 #############################
 # test complete (distance matrix)
 #############################
-# space = embedding.LoidSpace(points = initial_points)
+# space = embedding.LoidEmbedding(points = initial_points)
 # # print(space.points)
 # distance_matrix = space.distance_matrix()
 # # print(distance_matrix)
@@ -414,8 +415,8 @@ initial_points = space.points
 #############################
 # test complete (rotation)
 #############################
-space = embedding.LoidSpace(points = initial_points)
-pts = space.points
+# space = embedding.LoidEmbedding(points = initial_points)
+# pts = space.points
 # print(pts)
 # distance_matrix = space.distance_matrix()
 # # print(distance_matrix)
@@ -427,7 +428,7 @@ pts = space.points
 # space.translate(b)
 # # print(space.points)
 # distance_matrix2 = space.distance_matrix()
-# # print(distance_matrix2-distance_matrix)
+# print(distance_matrix2-distance_matrix)
 # b = torch.tensor(
 #     [0,10,-18])
 # b = -b / 10
@@ -444,9 +445,9 @@ pts = space.points
 # print(c)
 # print(space.to_poincare(c))
 
-mode = 'default'
-mode = 'Frechet'
-space = embedding.LoidSpace(points = initial_points)
+# mode = 'default'
+# # mode = 'Frechet'
+# space = embedding.LoidEmbedding(points = initial_points)
 # print(space.points)
 # print(space.centroid(mode = mode))
 # space.center(mode = mode)
@@ -456,7 +457,3 @@ space = embedding.LoidSpace(points = initial_points)
 #############################
 # test complete (translation, centroid, center)
 #############################
-
-
-
-
